@@ -1,19 +1,21 @@
+import { Injectable } from '@nestjs/common';
 import { Task, TaskDTO } from './entities/task';
 import { FilterTasksDTO } from './task.controller';
 import { PrismaService } from 'prisma/prisma.service';
 
+@Injectable()
 export class TaskRepository {
   constructor(private prisma: PrismaService) {}
 
   public async add(entity: Task) {
-    console.log(this.prisma);
-    // return await this.prisma.task.create({
-    //   data: {
-    //     title: entity.getTitle(),
-    //     description: entity.getDescription(),
-    //     status: entity.getStatus(),
-    //   },
-    // });
+    console.log(entity);
+    return await this.prisma.task.create({
+      data: {
+        title: entity.getTitle(),
+        description: entity.getDescription(),
+        status: entity.getStatus(),
+      },
+    });
   }
 
   public async findMany(filter: FilterTasksDTO): Promise<TaskDTO[]> {

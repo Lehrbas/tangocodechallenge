@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateTaskDTO, TaskService } from './task.service';
 
 export interface FilterTasksDTO {
@@ -13,7 +13,7 @@ export class TaskController {
   constructor(private taskService: TaskService) {}
 
   @Get()
-  public async get(filter: FilterTasksDTO) {
+  public async get(@Body() filter: FilterTasksDTO) {
     try {
       return {
         status: 200,
@@ -25,7 +25,7 @@ export class TaskController {
   }
 
   @Post()
-  public post(data: CreateTaskDTO) {
+  public post(@Body() data: CreateTaskDTO) {
     try {
       return {
         status: 200,
